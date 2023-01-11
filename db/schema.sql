@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS techdump_db;
+CREATE DATABASE techdump_db;
