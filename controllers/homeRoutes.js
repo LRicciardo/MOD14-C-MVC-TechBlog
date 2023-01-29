@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
 
     res.render('homepage', {
       blogs,
+      username: req.session.user_name,
 
       // Pass the login flag to the tamplate
       logged_in: req.session.logged_in,
@@ -28,19 +29,25 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/blog/:id', async (req, res) => {
+router.get('/blogpage/:id', async (req, res) => {
+
   try {
     const blogData = await Blog.findByPk(req.params.id, {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
         },
+   /*     {
+          model: Comment,
+        //  include: [Comment],
+        }, */
       ],
     });
 
-    const blog = blogData.get({ plain: true });
+    console.log("Blog Data", blogData);
 
+    const blog = blogData.get({ plain: true });
     res.render('blog', {
       ...blog,
       logged_in: req.session.logged_in
@@ -51,7 +58,7 @@ router.get('/blog/:id', async (req, res) => {
 });
 
 // Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/dash', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
@@ -61,7 +68,7 @@ router.get('/profile', withAuth, async (req, res) => {
 
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
+    res.render('dash', {
       ...user,
       logged_in: true
     });

@@ -1,0 +1,58 @@
+{{!-- <div class="row">
+  <div class="col-auto">
+    <h2>Welcome, {{username}}!</h2>
+    <p>You have {{blogs.length}} blogs.</p>
+  </div>
+</div> --}}
+{{> welcome }}
+
+{{!-- <div class="row"> --}}
+  <div class="column">
+    <h3>Create a Blog:</h3>
+
+    <form class="form new-blog-form">
+      <div class="form-group">
+        {{!-- <label for="blog-title">Title:</label> --}}
+        <input class="form-input" type="text" id="blog-title" name="blog-title" placeholder="Title"/>
+      </div>
+      <div class="form-group">
+        {{!-- <label for="blog-desc">Content:</label> --}}
+        <textarea class="form-input" id="blog-desc" name="blog-desc"  placeholder="Content" rows="5"></textarea>
+      </div>
+      <div class="form-group">
+        <button id="create-blog-btn" type="submit" class="btn btn-primary">
+          <i class="fa-regular fa-floppy-disk"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {{#if blogs.length}}
+  <div class="column blog-list">
+    <p class="is-size-3">Current Blogs:</p>
+
+    {{!-- {{#each blogs as |blog|}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a type="link" href="/blogpage/{{blog.id}}">{{title}}</a></h4>
+         <p>Created on {{format_date date_created}}</p>
+      </div>
+      <div class="col-md-4">
+        <span class='icon is-right'>
+          <button 
+            id='comment-btn' 
+            class='button is-small is-danger ml-6'
+            type='submit'
+            data-id="{{blog.id}}">
+            <i class="fa fa-trash"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+    {{/each}} --}}
+    {{> bloglist delete}}
+  </div>
+  {{/if}}
+{{!-- </div> --}}
+
+<script src="./js/dash.js"></script>

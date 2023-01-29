@@ -1,20 +1,25 @@
 const router = require('express').Router();
-const { Blog } = require('../../models');
+const { Comment } = require('../../models');
 
 router.post('/', async (req, res) => {
   try {
-    const newBlog = await Blog.create({
+
+    console.log(req.body)
+    const newComment = await Comment.create({
       ...req.body,
       user_id: req.session.user_id,
     });
 
-    res.status(200).json(newBlog);
+    // res.status(200).json(newComment);
 
-    // const blog = newBlog.get({ plain: true });
-    // res.render('dash', {
-    //   ...blog,
-    //   logged_in: req.session.logged_in
-    // });
+    const comment = newComment.get({ plain: true });
+
+    console.log(comment);
+    
+    res.render('blog', {
+      ...comment,
+      logged_in: req.session.logged_in
+    });
   } catch (err) {
     res.status(400).json(err);
   }
@@ -23,10 +28,6 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   console.log("Request: " , req.params)
   try {
-    // if (req.session.user_id != req.params.id) {
-    //   res.status(404).json({ message: 'Not your blog!' });
-    //   return;     
-    // }
     const blogData = await Blog.destroy({
       where: {
         id: req.params.id,

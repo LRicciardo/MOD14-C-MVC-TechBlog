@@ -1,8 +1,8 @@
 const withAuth = (req, res, next) => {
-  // TODO: Add a comment describing the functionality of this if statement
-  //  created middleware
-  //  authenticates (validates) log in information on the route active session
-  // if not logged in redirects to login page
+  // This middleware is responsible for: 
+  //    authenticating (validating) active session logged in switch 
+  // if not logged in, redirects to login page
+  //   otherwise will continue to the callback function
   if (!req.session.logged_in) {
     res.redirect('/login');
   } else {

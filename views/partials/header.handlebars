@@ -4,14 +4,15 @@
     <div class='column level-item'>
       <a>
         <img
-          {{!-- src starts with the "static" public folder --}}
+          {{! src starts with the "static" public folder }}
           src='../assets/technology-lightbulb.png'
-          width='150' />
-        </a>
+          width='150'
+        />
+      </a>
     </div>
     <div class='column'>
       <p class='title'>
-        {{!-- href references the route end-points --}}
+        {{! href references the route end-points }}
         <a href='/'>TechDump!</a>
       </p>
       <p class='subtitle'>
@@ -26,20 +27,33 @@
     <!-- Conditionally render login or logout links -->
     {{#if logged_in}}
       <li>
-        <!-- which contains preferences -->
-        <a href="/profile">Profile</a> |
-        <button class="no-button" id="logout">Logout</button>
+        <a id='home' href='/'>Home</a>
+      </li>
+      <li>
+        <!-- which contains user blogs -->
+        <a id='blog' href='/dash'>Dashboard</a>
+      </li>
+      <li>
+        <!-- or logout if logged-in-->
+        <button class='no-button' id='logout'>Logout</button>
       </li>
     {{else}}
+          <li>
+        <a id='home' href='/'>Home</a>
+      </li>
       <li>
-        <!-- or logout of logged in-->
+        <!-- which contains user blogs -->
+        <a id='blog' href='/dash'>Dashboard</a>
+      </li>
+      <li>
+        <!-- or login if not logged-in-->
         <a href='/login'>Login</a>
-        {{!-- <span>Login</span> --}}
+        {{! <span>Login</span> }}
       </li>
     {{/if}}
   </ul>
 </nav>
 
-  {{#if logged_in}}
-  <script defer src="/js/logout.js"></script>
-  {{/if}}
+{{#if logged_in}}
+  <script defer src='/js/logout.js'></script>
+{{/if}}

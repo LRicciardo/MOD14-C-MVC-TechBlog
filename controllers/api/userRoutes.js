@@ -50,6 +50,32 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/signup', async (req, res) => {
+  try {
+    const userData = await User.findOne({ where: { email: req.body.email } });
+
+    if (userData) {
+      res
+        .status(400)
+        .json({ message: `Email exist. Please try again!` });
+      return;
+    }
+
+    const newUser = await User.create(req.body);
+
+      req.session.save(() => {
+      req.session.user_id = newUser.id;
+      req.session.user_name = newUser.username;
+      req.session.logged_in = true;
+        
+      res.json({ user: userData, message: `Thank you,${req.session.user_name}, for signing up. You are now logged in!` });
+    });
+
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 router.post('/logout', (req, res) => {
 
   if (req.session.logged_in) {
