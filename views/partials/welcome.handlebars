@@ -1,12 +1,12 @@
 <!-- Conditionally render login or logout links -->
 {{#if logged_in}}
-  <div class='col-auto'>
-    <h2>Welcome, {{username}}!</h2>
-    <p>There are {{blogs.length}} blogs.</p>
+  <div class='column'>
+    <p class="is-size-2" >Welcome, {{logged_username}}!</p>
+    <p class="is-size-3" >There are {{blogs.length}} blogs.</p>
   </div>
 {{else}}
-  <div class='col-auto'>
-    <h2>Welcome to TechDump!</h2>
-    <p>You have not signed in.</p>
+  <div class='column'>
+    <p class="is-size-2" >Welcome to TechDump!</p>
+    {{!-- <p class="is-size-3" >You have not signed in.</p> --}}
   </div>
 {{/if}}

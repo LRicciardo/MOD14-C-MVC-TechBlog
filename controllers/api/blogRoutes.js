@@ -20,13 +20,12 @@ router.post('/', async (req, res) => {
   }
 });
 
+// :id is the blog identifier
 router.delete('/:id', async (req, res) => {
-  console.log("Request: " , req.params)
   try {
-    // if (req.session.user_id != req.params.id) {
-    //   res.status(404).json({ message: 'Not your blog!' });
-    //   return;     
-    // }
+    console.log(">>>>>>>   location blogRoutes DELETE 'api/blogs/:id' ");
+    console.log("Request: " , req.params)
+    // by using the combination blog id and user id, we validate the blog belongs to user
     const blogData = await Blog.destroy({
       where: {
         id: req.params.id,
@@ -40,12 +39,6 @@ router.delete('/:id', async (req, res) => {
     }
 
    res.status(200).json(blogData);
-
-  //  const blog = blogData.get({ plain: true });
-  //  res.render('dash', {
-  //    ...blog,
-  //    logged_in: req.session.logged_in
-  //  });
 
   } catch (err) {
     res.status(500).json(err);

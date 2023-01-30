@@ -9,6 +9,7 @@ const loginFormHandler = async (event) => {
 
   if (email && password) {
     //  get user from database
+    // const response = await fetch('/api/users/login', {
     const response = await fetch('/api/users/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
@@ -16,6 +17,7 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
+      
       // if successful, send the user to the home page
       document.location.replace('/');
     } else {

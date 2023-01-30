@@ -13,4 +13,14 @@ const emojiList = [`💻`,`⚙️`,`💡`,`😀`,`😃`, `😄`, `😁`, `😆`,
   return `<span for="img" aria-label="emoji">${getRandomArrItem(emojiList)}</span>`;
  
   },
+
+  getSessionData: () => {
+    return { 
+      // save the user in session storage
+      logged_in: req.session.logged_in,
+      logged_username: req.session.logged_user_name,
+      logged_user_email: req.session.user_email,
+      logged_admin: req.session.user_admin
+    }
+  },
 };

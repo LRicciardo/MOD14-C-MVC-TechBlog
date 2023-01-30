@@ -3,7 +3,9 @@ const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
 class User extends Model {
+  //  check the password on every user instance
   checkPassword(loginPw) {
+    // bcrypt - is a binary encryption algorithm for the password
     return bcrypt.compareSync(loginPw, this.password);
   }
 }
@@ -19,6 +21,7 @@ User.init(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -35,6 +38,7 @@ User.init(
         len: [8],
       },
     },
+    // admin is a boolean flag for admin users
     admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -49,6 +53,7 @@ User.init(
     },
   },
   {
+    // functions to perform for before or after lifecycle (CRUD and validation) events
     hooks: {
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);

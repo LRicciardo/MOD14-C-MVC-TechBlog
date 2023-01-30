@@ -34,31 +34,67 @@
 
   <p>{{description}}</p>
 
-  {{> comments }}
+  {{#if logged_in}}
+  <div class='container'>
+
+    <div class='columns field'>
+
+      <div class='control column has-icons-right'>
+        <textarea class='textarea' id="comment-text" placeholder='Add comment here'>
+        </textarea>
+        <span class='icon is-right'>
+          <button id='create-comment-btn' class='button is-focused ml-6' type='submit' data-id="{{comment.id}}">
+            <i class='fa-regular fa-floppy-disk'></i>
+          </button>
+        </span>
+      </div>
+
+      <div class='control'>
+      </div>
+
+    </div>
+  </div>
+{{/if}}
   
   {{#if comments.length}}
-  <div class="col-md-6 comment-list">
+  <div class="container comment-list">
     <h3>Comments:</h3>
 
     {{#each comments as |comment|}}
-    <div class="row mb-2">
-      <div class="col-md-8">
-        <h4>
-          <a type="link" href="/comments/{{comment.id}}">
-          <span>Created by {{comment.username}} on {{format_date comment.date_created}}
-
-          </span>
-          </a>
-          </h4>
-         
+    <div class="card comment">
+      <div class="card-content">
+         <div class="content is-size-5">
+          {{comment_text}}
+         </div>
       </div>
-      <div class="col-md-4">
+      <div class="columns card-icon">
+      <div class="column">
+        <p class="is-size-5" >
+          {{!-- <a type="link" href="/comments/{{comment.id}}"> --}}
+          {{!-- <span>Created by {{comment.user.username}} on {{format_date comment.date_created}} --}}
+          <span>Created by {{comment.user.username}}
+          </span>
+          {{!-- </a> --}}
+          </p>
+      </div>
+      <div class="column">
         <button id="delete-comment-btn" class="btn btn-sm btn-danger" data-id="{{comment.id}}">
           <i class="fa fa-trash"></i>
           </button>
+      </div>
       </div>
     </div>
     {{/each}}
   </div>
   {{/if}}
 </div>
+
+
+  <script src="./js/blog.js"></script>
+
+{{#if logged_in}}
+
+  <script src="./js/comment.js"></script>
+  {{!-- <script src='../public/js/comment.js'></script> --}}
+
+{{/if}}

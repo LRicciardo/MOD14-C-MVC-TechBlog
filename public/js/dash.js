@@ -14,7 +14,14 @@ const createBlogHandler = async (event) => {
       body: JSON.stringify({ title, description,  }),
       headers: { 'Content-Type': 'application/json' },
     });
-    window.location.href = '/dash'
+
+    
+    if (response.ok) {
+      window.location.href = '/dash'}
+    } else {
+     res.status(404).json({ message: 'Blog not created!' });
+    }
+    
 
   }
   } catch (error) {
@@ -51,18 +58,22 @@ const deleteBlogHandler = async (event) => {
      //  prevent page from loading
   event.preventDefault();
  
-  // gather user email and password inputs
+  // retrieve the data id from the button
   const delete_id = $('#delete-blog-btn').data('id');
   console.log(delete_id);
   
   if (delete_id) {
-    //  goto end-point to create new blog
+    //  goto end-point to delete blog
     const response = await fetch(`/api/blogs/${delete_id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-    }); 
-    window.location.href = '/dash'
-  }
+    });
+
+    if (response.ok) {
+     window.location.href = '/dash'}
+   } else {
+    res.status(404).json({ message: 'No blog found with this id!' });
+   }
   } catch (error) {
     res.status(400).json(err);
   }

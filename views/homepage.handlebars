@@ -19,5 +19,35 @@
   </div>
 </div>
 {{/each}} --}}
+{{#if blogs.length}}
+  <div class="column blog-list">
+    <p class="is-size-3">Current Blogs:</p>
 
-{{> bloglist }}
+{{#each blogs as |blog| }}
+<div class="card blog">
+  <header class="card-header is-small level">
+    <p class="card-header-title">
+      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+      {{{get_emoji}}}
+      <a type="link" href="/blogpage/{{blog.id}}">{{blog.title}}</a>
+    </p>
+    <p class="card-header-subtitle">
+      Created by {{blog.user.username}} on {{format_date blog.date_created}}
+    </p>
+  </header>
+
+  <div class="card-content">
+    <div class="content">
+      {{blog.description}}
+    </div>
+  </div>
+</div>
+{{/each }}
+
+{{else}}
+  <div class='column'>
+    <p class="is-size-3" >Be the First to enter a blog.</p>
+  </div>
+{{/if}} 
+
+{{!-- {{> bloglist parameter=nodelete}} --}}

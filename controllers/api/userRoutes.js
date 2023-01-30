@@ -1,26 +1,39 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
-router.post('/', async (req, res) => {
-  try {
-    const userData = await User.create(req.body);
+// user model fields:
+// id, username, email, password, admin, date_added
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.user_name = userData.username;
-      req.session.logged_in = true;
+// //  create a new user 
+// router.post('/', async (req, res) => {
+//   try {
+//     console.log(">>>>>>>>>>  location userRoutes POST 'api/users/' ");
+//     const userData = await User.create(req.body);
+//     console.log(userData);
+//     // save the session data
+//     req.session.save(() => {
+//       req.session.user_id = userData.id;
+//       req.session.user_name = userData.username;
+//       req.session.user_email = userData.email;
+//       req.session.user_admin = userData.admin;
+//       req.session.logged_in = true;
 
-      res.status(200).json(userData);
-    });
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
+//       res.status(200).json(userData);
+//     });
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// });
 
+// POST (create) user login
 router.post('/login', async (req, res) => {
   try {
+    console.log(">>>>>>>>>> location userRoutes POST 'api/users/login' ");
+    // First we find one user record with an email address that matches the one provided by the user logging in
+    // could find on usernames and email addresses (both are required and unique)
     const userData = await User.findOne({ where: { email: req.body.email } });
 
+    // If an account with that email address doesn't exist, the user will recieve an error message
     if (!userData) {
       res
         .status(400)
@@ -28,8 +41,9 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await userData.checkPassword(req.body.password);
-
+    // If the user does exist, we will use the checkPassword() instance method to compare the user's input to the password stored in the record
+    const validPassword = userData.checkPassword(req.body.password);
+    // If checkPassword() evaluates as false, the user will receive an error message
     if (!validPassword) {
       res
         .status(400)
@@ -37,11 +51,15 @@ router.post('/login', async (req, res) => {
       return;
     }
 
+    // save the user in session storage
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.user_name = userData.username;
+      req.session.user_email = userData.email;
+      req.session.user_admin = userData.admin;
       req.session.logged_in = true;
         
+      // If checkPassword() evaluates as true, the user will be logged in
       res.json({ user: userData, message: `${req.session.user_name} is now logged in!` });
     });
 
@@ -52,12 +70,13 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   try {
+    console.log("location userRoutes POST 'api/users/signup' ");
     const userData = await User.findOne({ where: { email: req.body.email } });
 
     if (userData) {
       res
         .status(400)
-        .json({ message: `Email exist. Please try again!` });
+        .json({ message: `User exist. Please try again!` });
       return;
     }
 
@@ -66,9 +85,11 @@ router.post('/signup', async (req, res) => {
       req.session.save(() => {
       req.session.user_id = newUser.id;
       req.session.user_name = newUser.username;
+      req.session.user_email = newUser.email;
+      req.session.user_admin = newUser.admin;
       req.session.logged_in = true;
         
-      res.json({ user: userData, message: `Thank you,${req.session.user_name}, for signing up. You are now logged in!` });
+      res.json({ user: newUser, message: `Thank you,${req.session.user_name}, for signing up. You are now logged in!` });
     });
 
   } catch (err) {
@@ -76,15 +97,16 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-router.post('/logout', (req, res) => {
-
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+// // POST user logout
+// router.post('/logout', (req, res) => {
+//   // When the user logs out, destroy the session storage
+//   if (req.session.logged_in) {
+//     req.session.destroy(() => {
+//       res.status(204).end();
+//     });
+//   } else {
+//     res.status(404).end();
+//   }
+// });
 
 module.exports = router;
