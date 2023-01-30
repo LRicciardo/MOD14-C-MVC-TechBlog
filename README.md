@@ -6,6 +6,9 @@ CMS-style blog site where developers can publish their blog posts and comment on
 ## Description
 
 Create a CMS style Blog site.
+- [deployed web page](https://lricciardo.github.io/MOD14-C-MVC-TechBlog/)
+- [GitHub repository](https://github.com/LRicciardo/MOD14-C-MVC-TechBlog)
+
 
 ## Table of Contents
   
