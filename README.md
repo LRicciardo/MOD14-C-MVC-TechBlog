@@ -5,13 +5,12 @@ CMS-style blog site where developers can publish their blog posts and comment on
 
 ## Description
 
-Creates the CRUD processes for and Internet retail produce database management application
+Create a CMS style Blog site.
 
 ## Table of Contents
   
 - [User Story](#userstory)
 - [Acceptance Criteria](#acceptance-criteria)
-- [Visual Documentation](#visual-documentation)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
@@ -68,40 +67,22 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 ```
 
 
-## Visual Documentation
-
-The following video shows the application being used from Insomnia app:
-
-DEMO video 1: The GET functions for Category, Product, and Tag tables.
-
-[![A DEMO video 1: The GET functions for Category, Product, and Tag tables.](./assets/images/13-orm-homework-demo-01-sm.gif)](https://drive.google.com/file/d/1-ChrH9NOEWzQyPIfhW-zl0HFe7Zm80KC/view?usp=share_link)
-
-***
-
-A DEMO video 2: The GET by Id functions for Category, Product, and Tag tables.
-
-[![A DEMO video 2: The GET by Id functions for Category, Product, and Tag tables.](./assets/images/13-orm-homework-demo-01-sm.gif)](https://drive.google.com/file/d/1dmQe1YpSUbcl8dGH-m9CDf4-FJksNojM/view?usp=share_link)
-
-***
-
-A DEMO video 3: The POST, PUT and DELETE functions for Category, Product, and Tag tables.
-
-[![A DEMO video 3: The POST, PUT and DELETE functions for Category, Product, and Tag tables.](./assets/images/13-orm-homework-demo-01-sm.gif)](https://drive.google.com/file/d/1BXKKZZqOBH0nvKGfsKHHius-8LXPyVN9/view?usp=share_link)
-
-
-## Visual Database Schema
-
-The following is a visual representation of the ecommerce_db database schema.
-
-![database schema](./assets/images/MOD13-C-ORM-E-Commerce-Back-End-sm.png)
-
 ## Installation
 
 Initialize npm to produce the package.json file.
-Type npm install to install the following: MySQL2, sequelize, express, dotenv.
+Type npm install to install the following: 
+- bcrypt
+- connect-session-sequelize
+- dotenv
+- express
+- express-handlebars
+- express-session
+- mysql2
+- nodemon
+- sequelize
  
 In the command line, type npm start.
-USES Insomnia to perform CRUD tasks
+Go to your browser and type:  http://localhost:3001 
 
 
 ## Usage
@@ -110,11 +91,12 @@ USES Insomnia to perform CRUD tasks
 - dotenv - to hide the environmental variables (password/database)
 - MySQL2 package - as the database dialect
 - sequelize - to interpret the SQL commands
-- Insomnia app - to perform the CRUD functions to the database 
+- handlebars - to separate the views
+
 
 ## Credits
 
-I would like to thank Erik Hoversten for tutoring me though the async/await, constructor functions, Trey Eckels for teaching about modules and everything else, my family for putting up with this crazy.
+So many credits so little time.
 
 ## License
 
